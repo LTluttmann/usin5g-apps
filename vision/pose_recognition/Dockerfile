@@ -44,11 +44,11 @@ EXPOSE 1234
 
 COPY src /src/
 COPY requirements.txt ./requirements.txt
-COPY assets/gesture_recognizer.task src/gesture_recognizer.task
+COPY assets/gesture_recognizer.task ./gesture_recognizer.task
 
 RUN pip3 install -r requirements.txt
 RUN chmod +x /src/server.py
 
 # entrypoint (this part should not be changed / not configurable)
-ENTRYPOINT [ "python3", "/src/server.py" ]
-CMD [ "--model_file", "/src/gesture_recognizer.task", "--stream_port", "12345" ]
+# ENTRYPOINT [ "python3", "/src/server.py" ]
+# CMD [ "--model_file", "./gesture_recognizer.task", "--stream_port", "12345" ]

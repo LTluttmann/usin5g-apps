@@ -1,5 +1,5 @@
 import logging
-import tb_rest_client.rest_client_pe as tbr
+import tb_rest_client.rest_client_ce as tbr
 from datetime import datetime
 import numpy as np
 from dataclasses import dataclass
@@ -14,7 +14,7 @@ from config import (
 
 
 tenant = USERS["tenant"]
-tenant_client = tbr.RestClientPE(base_url=URL)
+tenant_client = tbr.RestClientCE(base_url=URL)
 tenant_client.login(username=tenant["mail"], password=tenant["pw"])
 
 
@@ -44,7 +44,7 @@ class PickingRoboter:
 
 @dataclass
 class PickingTask:
-    coord: Coordinates = Coordinates(10.4034710, 53.2280540)
+    coord: Coordinates
 
 
 
@@ -149,7 +149,7 @@ def main():
             task = get_random_task(depot)
 
         if robo.battery <= 30.0:
-            task = PickingTask(HOME_COORD)
+            task = PickingTask(depot)
 
         update_robo(robo)
         time.sleep(1.0)

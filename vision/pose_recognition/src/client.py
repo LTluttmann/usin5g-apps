@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.DEBUG)
     
 
 class Publisher(object):
-
+    """implement ROS logic here"""
     def __init__(self) -> None:
         self.last_msg = None
 
@@ -27,14 +27,16 @@ async def message():
     retry_counts = 0
     while True:
         try:
-            async with websockets.connect("ws://127.0.0.1:1234", ping_interval=30) as socket:
+            async with websockets.connect("ws://127.0.0.1:1234") as socket:
                 await socket.send("Hello from Client")
                 await socket.recv()
                 print("Connection esablished")
 
                 retry_counts = 0
                 while True:
+                    logging.info("awaiting event message from server")
                     response = await socket.recv()
+                    logging.info("received event message from server")
                     if response in ["up", "down"]:
                         publisher.publish(response)
                     elif response == "pong":
@@ -53,7 +55,7 @@ async def message():
                 print("Connection retries exeeded. Aborting...")
                 break
 
-        await asyncio.sleep(10)  # Adjust the reconnection interval as needed
+        await asyncio.sleep(30)  # Adjust the reconnection interval as needed
 
 
 if __name__ == "__main__":

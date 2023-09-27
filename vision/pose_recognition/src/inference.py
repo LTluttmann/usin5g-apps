@@ -7,12 +7,7 @@ from config import Config
 
 
 def get_stream(url:str):
-    return (
-        ffmpeg
-        .input(url, framerate='15')
-        .output('pipe:', format='rawvideo', pix_fmt='rgb24')
-        .run_async(pipe_stdout=True)
-    )
+    return (ffmpeg.input(url, framerate='15').output('pipe:', format='rawvideo', pix_fmt='rgb24').run_async(pipe_stdout=True))
 
 
 def detect_gesture(framergb, recognizer):
