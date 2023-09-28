@@ -51,26 +51,13 @@ class EventQueue(object):
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--stream_port', type=str, default="123")
+    parser.add_argument('--ws_port', type=str, default="1234")
     parser.add_argument('--model_file', type=str, default="/Users/luttmann/Documents/USIN5G/Repos/usin5g-apps/vision/pose_recognition/assets/gesture_recognizer.task")
     args = parser.parse_args()
     return args
 
 
-# STEP 1: Fetch the video stream
-args = get_args()
-config = Config(port=args.stream_port,
-                model_path=args.model_file)
-
-
-stream = get_stream(config)
-
-# STEP 2: Create an GestureRecognizer object.
-base_options = python.BaseOptions(model_asset_path=config.model_path)
-options = vision.GestureRecognizerOptions(base_options=base_options)
-recognizer = vision.GestureRecognizer.create_from_options(options)
-
-
-async def fetch_and_analyse_video(websocket):
+async def fetch_and_analyse_video(websocket, stream, recognizer, config):
     event_queue = EventQueue(5)
 
     try:
@@ -96,13 +83,13 @@ async def fetch_and_analyse_video(websocket):
         raise e
 
 
-async def main(websocket: WebSocketServerProtocol, path):
+async def main(websocket: WebSocketServerProtocol, path, stream, recognizer, config):
 
     try:
 
-        video_task = asyncio.create_task(fetch_and_analyse_video(websocket))
+        video_task = asyncio.create_task(fetch_and_analyse_video(websocket, stream, recognizer, config))
         logging.info("Start Job for client with id: %s" % websocket.id)
-        
+
         await video_task
         logging.info("Finished Job for client with id: %s" % websocket.id)
 
@@ -114,10 +101,27 @@ async def main(websocket: WebSocketServerProtocol, path):
 
 
 
-
 if __name__ == "__main__":
+
+    # STEP 1: Fetch the video stream
+    args = get_args()
+    config = Config(stream_port=args.stream_port,
+                    model_path=args.model_file)
+
+
+    logging.info("Wait for stream...")
+    stream = get_stream(config)
+    logging.info("Got stream. Start server")
+
+    # STEP 2: Create an GestureRecognizer object.
+    base_options = python.BaseOptions(model_asset_path=config.model_path)
+    options = vision.GestureRecognizerOptions(base_options=base_options)
+    recognizer = vision.GestureRecognizer.create_from_options(options)
+
+    main_fn = lambda ws, p: main(ws, p, stream, recognizer, config)
+
     try:
-        start_server = websockets.serve(main, "127.0.0.1", 1234, ping_timeout=120)
+        start_server = websockets.serve(main_fn, "0.0.0.0", config.websocket_port)
         asyncio.get_event_loop().run_until_complete(start_server)
         asyncio.get_event_loop().run_forever()
 

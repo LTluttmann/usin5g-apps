@@ -5,7 +5,7 @@ import asyncio
 
 
 async def websocket_handler(pub):
-    uri = "ws://localhost:1234"  # Replace with your WebSocket server address
+    uri = "ws://20.52.7.116:1234"  # Replace with your WebSocket server address
     async with websockets.connect(uri) as websocket:
         while not rospy.is_shutdown():
             try:
@@ -18,6 +18,7 @@ async def websocket_handler(pub):
             except websockets.exceptions.ConnectionClosed:
                 rospy.logwarn("WebSocket connection closed.")
                 break
+
 
 
 if __name__ == '__main__':

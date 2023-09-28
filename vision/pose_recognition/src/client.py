@@ -5,10 +5,20 @@ import websockets
 import logging
 import rospy
 from std_srvs.srv import SetBool
+import argparse
 
 
 logging.basicConfig(level=logging.DEBUG)
     
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ws_port', type=str, default="1234")
+    parser.add_argument('--server_ip', type=str, default="localhost")
+    args = parser.parse_args()
+    return args
+
 
 
 class LidNode(object):
@@ -41,13 +51,13 @@ class LidNode(object):
             
 
 
-async def main(lid_controller: LidNode):
+async def main(lid_controller: LidNode, args):
 
     retry_counts = 0
 
     while True:
         try:
-            async with websockets.connect("ws://127.0.0.1:1234") as socket:
+            async with websockets.connect("ws://{}:{}".format(args.server_ip, args.ws_port)) as socket:
                 retry_counts = 0
                 while not rospy.is_shutdown():
                     logging.info("awaiting event message from server")
@@ -72,7 +82,8 @@ async def main(lid_controller: LidNode):
 
 
 if __name__ == "__main__":
+    args = get_args()
     lid_controller = LidNode()
-    asyncio.get_event_loop().run_until_complete(main(lid_controller))
+    asyncio.get_event_loop().run_until_complete(main(lid_controller, args))
     rospy.spin()
 

@@ -13,6 +13,13 @@ class CaptureStreamException(Exception):
     pass
 
 
+def connect(command, config):
+    process = subprocess.Popen(command, stdout=subprocess.PIPE)
+    # wait until stream is ready to fire up server
+    _ = process.stdout.read(config.width * config.height * config.channels)
+    return process
+    
+
 def connect_with_timeout(command, config: Config):
     process = subprocess.Popen(command, stdout=subprocess.PIPE)
 
@@ -38,7 +45,7 @@ def get_stream(config: Config):
         'ffmpeg', 
         "-fflags", "nobuffer",
         # '-r', '{}'.format(config.input_rate), 
-        '-i', 'udp://localhost:{}'.format(config.port), 
+        '-i', 'udp://localhost:{}'.format(config.stream_port), 
         "-probesize", "32", 
         "-analyzeduration",  "0",
         '-f', 'rawvideo', 
@@ -53,11 +60,14 @@ def get_stream(config: Config):
     while stream is None :
         try:
             num_attempts += 1
-            stream = connect_with_timeout(cmd, config)
+            if config.stream_connect_timeout is not None:
+                stream = connect_with_timeout(cmd, config)
+            else:
+                stream = connect(cmd, config)
         except subprocess.TimeoutExpired as e:
             if num_attempts <= max_attempts:
                 logging.info("Connection failed (%s attempts left)" % (max_attempts - num_attempts))
-                time.sleep(1.0)
+                time.sleep(10.0)
             else:
                 raise e
             
@@ -66,7 +76,7 @@ def get_stream(config: Config):
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
     import numpy as np
-    config = Config(port=123)
+    config = Config(stream_port=123)
     stream = get_stream(config)
     in_bytes = stream.stdout.read(config.width * config.height * config.channels)
     in_frame = np.frombuffer(in_bytes, np.uint8)
