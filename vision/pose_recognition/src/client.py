@@ -3,46 +3,59 @@
 import asyncio
 import websockets
 import logging
+import rospy
+from std_srvs.srv import SetBool
 
 
 logging.basicConfig(level=logging.DEBUG)
     
 
-class Publisher(object):
+
+class LidNode(object):
     """implement ROS logic here"""
     def __init__(self) -> None:
+
+        rospy.init_node("websocket_ctrl")
+        rospy.loginfo("Starting websocket_ctrl node.")
+
         self.last_msg = None
+
+    def lid_ctrl(cmd):
+        """
+
+        """
+        rospy.wait_for_service("lid_ctrl")
+        try:
+            srv_lid = rospy.ServiceProxy("lid_ctrl", SetBool)
+            resp = srv_lid(cmd)
+            rospy.loginfo(resp.message)
+            return resp.success
+        except rospy.ServiceException as e:
+            print(e)
 
     def publish(self, msg):
         
         if msg != self.last_msg:
             self.last_msg = msg
-            print("EVENT: ", msg)
+            self.lid_ctrl(msg)
             
 
 
-async def message():
+async def main(lid_controller: LidNode):
 
-    publisher = Publisher()
     retry_counts = 0
+
     while True:
         try:
             async with websockets.connect("ws://127.0.0.1:1234") as socket:
-                await socket.send("Hello from Client")
-                await socket.recv()
-                print("Connection esablished")
-
                 retry_counts = 0
-                while True:
+                while not rospy.is_shutdown():
                     logging.info("awaiting event message from server")
                     response = await socket.recv()
                     logging.info("received event message from server")
                     if response in ["up", "down"]:
-                        publisher.publish(response)
-                    elif response == "pong":
-                        print("Received pong from server.")
-                    else:
-                        print(f"Received unexpected response from server: {response}")
+                        lid_controller.publish(response)
+
 
         except Exception as e:
             print(e.__str__)
@@ -59,4 +72,7 @@ async def message():
 
 
 if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(message())
+    lid_controller = LidNode()
+    asyncio.get_event_loop().run_until_complete(main(lid_controller))
+    rospy.spin()
+

@@ -100,12 +100,9 @@ async def main(websocket: WebSocketServerProtocol, path):
 
     try:
 
-        msg = await websocket.recv()
-        logging.info(msg)
-        await websocket.send("Hello from Server")
-
         video_task = asyncio.create_task(fetch_and_analyse_video(websocket))
         logging.info("Start Job for client with id: %s" % websocket.id)
+        
         await video_task
         logging.info("Finished Job for client with id: %s" % websocket.id)
 
