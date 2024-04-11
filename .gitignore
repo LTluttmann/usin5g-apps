@@ -1,7 +1,7 @@
 secrets.json
 config.py
 
-
+.DS_Store
 .vscode
 .gitignore
 launch.json
