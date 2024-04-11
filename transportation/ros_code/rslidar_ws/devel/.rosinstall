@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/ros/ros_code/rslidar_ws/devel/setup.sh

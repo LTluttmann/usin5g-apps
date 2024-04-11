@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+
+    <include file="$(find robot_description)/launch/robot_description.launch" />
+    <include file="$(find light_ctrl)/launch/light_ctrl.launch" />
+    <include file="$(find lid_ctrl)/launch/lid_ctrl.launch" />
+    <include file="$(find joy_ctrl)/launch/joy_ctrl.launch" />
+    <include file="$(find joy_ctrl)/launch/joy_navi.launch" />
+    <include file="$(find joy_ctrl)/launch/teleop.launch" />
+    <include file="$(find diff_drive)/launch/diff_drive.launch" />
+    <include file="$(find diff_drive)/launch/cmd_vel_mux.launch" />
+    <include file="$(find diff_drive)/launch/yocs_velocity_smoother.launch" />
+    <include file="$(find jrobot_can)/launch/jrobot_can.launch" />
+    <include file="$(find ultrasonic)/launch/ultrasonic.launch" />
+    <include file="$(find ultrasonic_dyp)/launch/ultrasonic_dyp.launch" />
+    <include file="$(find navi_ctrl)/launch/rslidar.launch" />
+    <node name="map_server" pkg="map_server" type="map_server" args="/home/ros/ros_code/jetson_nx_robot/user/maps/1.yaml" respawn="false" />
+    <include file="$(find navi_ctrl)/launch/move_base_amcl.launch" />
+    
+    
+
+</launch>

@@ -1,0 +1,6 @@
+joy:
+  axes_lid: 7
+  button_light_r: 1
+  button_light_g: 0
+  button_light_b: 2
+  axes_light_turn: 6

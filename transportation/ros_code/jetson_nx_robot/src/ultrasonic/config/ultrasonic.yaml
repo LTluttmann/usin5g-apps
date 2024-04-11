@@ -1,0 +1,5 @@
+ultrasonic:
+  field_of_view: 30.0
+  min_range: 0.285
+  max_range: 4.5
+  data_index: [f0, fl, l, rl, r0, rr, r, fr]

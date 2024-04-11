@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<robot name="robot">
+  <material name="yellow">
+    <color rgba="0.8 0.8 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <link name="base_link">
+      <visual>
+          <geometry>
+            <box size="0.6 0.4 0.5"/>
+          </geometry>
+          <material name="white"/>
+          <origin xyz="0 0 0.5" rpy="0 0 0"/>
+        </visual>
+  </link>
+<!-- -->
+  <link name="ultrasonic_f0">
+      <visual>
+        <geometry>
+          <cylinder length="0.02" radius="0.005"/>
+        </geometry>
+        <material name="yellow"/>
+        <origin xyz="0 0 0" rpy="0 1.571 0"/>
+      </visual>
+  </link>
+  <joint name="base_to_ultrasonic_f0" type="fixed">
+      <parent link="base_link"/>
+      <child link="ultrasonic_f0"/>
+      <origin xyz="0.3245 0 0.3745" rpy="0 0 0"/>
+  </joint>
+
+  <link name="ultrasonic_fl">
+      <visual>
+        <geometry>
+          <cylinder length="0.02" radius="0.005"/>
+        </geometry>
+        <material name="yellow"/>
+        <origin xyz="0 0 0" rpy="0 1.571 0"/>
+      </visual>
+  </link>
+  <joint name="base_to_ultrasonic_fl" type="fixed">
+      <parent link="base_link"/>
+      <child link="ultrasonic_fl"/>
+      <origin xyz="0.2994 0.1989 0.3745" rpy="0 0 0.7854"/>
+  </joint>
+
+  <link name="ultrasonic_fr">
+      <visual>
+        <geometry>
+          <cylinder length="0.02" radius="0.005"/>
+        </geometry>
+        <material name="yellow"/>
+        <origin xyz="0 0 0" rpy="0 1.571 0"/>
+      </visual>
+  </link>
+  <joint name="base_to_ultrasonic_fr" type="fixed">
+      <parent link="base_link"/>
+      <child link="ultrasonic_fr"/>
+      <origin xyz="0.2994 -0.1989 0.3745" rpy="0 0 -0.7854"/>
+  </joint>
+
+  <link name="ultrasonic_l">
+      <visual>
+        <geometry>
+          <cylinder length="0.02" radius="0.005"/>
+        </geometry>
+        <material name="yellow"/>
+        <origin xyz="0 0 0" rpy="1.571 0 1.571"/>
+      </visual>
+  </link>
+  <joint name="base_to_ultrasonic_l" type="fixed">
+      <parent link="base_link"/>
+      <child link="ultrasonic_l"/>
+      <origin xyz="0 0.2235 0.3745" rpy="0 0 1.571"/>
+  </joint>
+
+  <link name="ultrasonic_r">
+      <visual>
+        <geometry>
+          <cylinder length="0.02" radius="0.005"/>
+        </geometry>
+        <material name="yellow"/>
+        <origin xyz="0 0 0" rpy="1.571 0 1.571"/>
+      </visual>
+  </link>
+  <joint name="base_to_ultrasonic_r" type="fixed">
+      <parent link="base_link"/>
+      <child link="ultrasonic_r"/>
+      <origin xyz="0 -0.2235 0.3745" rpy="0 0 -1.571"/>
+  </joint>
+
+  <link name="ultrasonic_r0">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.005"/>
+      </geometry>
+      <material name="yellow"/>
+      <origin xyz="0 0 0" rpy="0 1.571 0"/>
+    </visual>
+  </link>
+  <joint name="base_to_ultrasonic_r0" type="fixed">
+      <parent link="base_link"/>
+      <child link="ultrasonic_r0"/>
+      <origin xyz="-0.3245 0 0.3745" rpy="0 0 3.14159"/>
+  </joint>
+
+  <link name="ultrasonic_rl">
+      <visual>
+        <geometry>
+          <cylinder length="0.02" radius="0.005"/>
+        </geometry>
+        <material name="yellow"/>
+        <origin xyz="0 0 0" rpy="0 1.571 0"/>
+      </visual>
+  </link>
+  <joint name="base_to_ultrasonic_rl" type="fixed">
+      <parent link="base_link"/>
+      <child link="ultrasonic_rl"/>
+      <origin xyz="-0.2994 0.1989 0.3745" rpy="0 0 2.356"/>
+  </joint>
+
+  <link name="ultrasonic_rr">
+      <visual>
+        <geometry>
+          <cylinder length="0.02" radius="0.005"/>
+        </geometry>
+        <material name="yellow"/>
+        <origin xyz="0 0 0" rpy="0 1.571 0"/>
+      </visual>
+  </link>
+  <joint name="base_to_ultrasonic_rr" type="fixed">
+      <parent link="base_link"/>
+      <child link="ultrasonic_rr"/>
+      <origin xyz="-0.2994 -0.1989 0.3745" rpy="0 0 -2.356"/>
+  </joint>
+
+  <link name="rslidar">
+      <visual>
+        <geometry>
+          <cylinder length="0.1" radius="0.05"/>
+        </geometry>
+        <material name="yellow"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </visual>
+  </link>
+  <joint name="base_to_lidar" type="fixed">
+      <parent link="base_link"/>
+      <child link="rslidar"/>
+      <origin xyz="-0.2994 0 0.9279" rpy="0 0 0"/>
+  </joint>
+
+</robot>

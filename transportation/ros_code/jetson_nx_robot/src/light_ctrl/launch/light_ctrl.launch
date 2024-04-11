@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="light_ctrl" name="light_ctrl" type="light_ctrl.py"/>
+    <rosparam file="$(find light_ctrl)/config/light_ctrl.yaml" command="load"/>
+
+</launch>

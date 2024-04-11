@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="jrobot_can" type="jrobot_can.py" name="jrobot_can" output="screen" respawn="true" respawn_delay="0">
+        
+    </node>
+    <rosparam file="$(find jrobot_can)/config/jrobot_can.yaml" command="load" />
+    
+
+</launch>

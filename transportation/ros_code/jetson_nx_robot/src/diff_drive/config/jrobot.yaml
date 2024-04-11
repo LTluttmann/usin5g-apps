@@ -1,0 +1,9 @@
+diff_drive:
+  wheel_radius: 0.155
+  wheel_base: 0.506
+  resolution: 4096
+  count_bits: 32
+  gear_ratio: 47.0
+  reverse_l: True
+  reverse_r: False
+  time_out: 3.0

@@ -1,0 +1,6 @@
+lid:
+  pin_open: 12
+  pin_close: 11
+  pin_unclosed: 13
+  time_open: 3
+  time_close: 3

@@ -1,0 +1,6 @@
+light:
+  pin_r: 33
+  pin_g: 32
+  pin_b: 15
+  pin_turn_l: 16
+  pin_turn_r: 18

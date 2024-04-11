@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="diff_drive" name="diff_drive" type="diff_drive.py">
+        <!--remap from="cmd_vel" to="cmd_vel/joy"/-->
+        <remap from="odom_drive" to="odom"/>
+        
+    </node>
+    <rosparam file="$(find diff_drive)/config/jrobot.yaml" command="load" />
+
+</launch>

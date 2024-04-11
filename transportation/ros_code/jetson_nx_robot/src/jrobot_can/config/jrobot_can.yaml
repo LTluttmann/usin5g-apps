@@ -1,0 +1,6 @@
+motor_can:
+  channel: can0
+  bitrate: 250000
+  id: 0x601
+  rate_encoder: 20
+  max_rpm: 3000

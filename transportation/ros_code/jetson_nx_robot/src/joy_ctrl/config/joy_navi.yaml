@@ -1,0 +1,8 @@
+joy:
+  enable_button_navi: 5
+  button_global_localization: 3
+  button_clear_costmaps: 2
+  button_start_cartographer: 1
+  button_save_cartographer: 0
+  axes_change_map: 0
+map_dir: /home/ros/ros_code/jetson_nx_robot/user/maps/

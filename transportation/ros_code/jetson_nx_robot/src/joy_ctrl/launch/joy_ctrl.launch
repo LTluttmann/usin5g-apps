@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="joy_ctrl" name="joy_ctrl" type="joy_ctrl.py"/>
+    <rosparam file="$(find joy_ctrl)/config/joy_ctrl.yaml" command="load"  />
+
+</launch>

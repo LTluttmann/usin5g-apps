@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="ultrasonic_dyp" type="ultrasonic_dyp.py" name="ultrasonic_dyp" output="screen" respawn="true" respawn_delay="3">
+        
+    </node>
+    <rosparam file="$(find ultrasonic_dyp)/config/ultrasonic_dyp.yaml" command="load" />
+    
+
+</launch>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="joy_ctrl" name="joy_navi" type="joy_navi.py" output="screen"/>
+    <rosparam file="$(find joy_ctrl)/config/joy_navi.yaml" command="load"  />
+
+</launch>
