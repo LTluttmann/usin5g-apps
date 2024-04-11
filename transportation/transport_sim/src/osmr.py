@@ -4,7 +4,7 @@ from typing import List, Union
 from  assets import Coordinates
 
 
-API_KEY = "5b3ce3597851110001cf6248ed84a11c065a471dac173363bbd6d063"
+API_KEY = "XXX"
 ROUTE_TYPE = "foot-walking"
 root_url = "https://api.openrouteservice.org/v2/directions/{route_type}?api_key={key}&start={start}&end={end}"
 
