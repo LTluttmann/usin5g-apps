@@ -4,7 +4,7 @@ let latestMessage = "Standardnachricht";
 
 function connectToBroker() {
     const clientId = "client" + Math.random().toString(36).substring(7);
-    const host = "ws://4.184.199.231:15675/ws"; // Use "wss://" for secure connections
+    const host = "ws://brokercredentials/ws"; // Use "wss://" for secure connections
     const options = {
         keepalive: 60,
         clientId,
@@ -13,8 +13,8 @@ function connectToBroker() {
         clean: true,
         reconnectPeriod: 1000,
         connectTimeout: 30 * 1000,
-        username: "prueferol",
-        password: "Susauskaka27!",
+        username: "brokeradmin",
+        password: "brokeradmin",
     };
 
     mqttClient = mqtt.connect(host, options);
