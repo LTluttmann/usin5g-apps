@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.tooltip {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    position: relative;
+    transform: translateY(-50px);
+    opacity: 0;
+    transition-duration: 0.2s;
+    transition-property: opacity, transform;
+}
+
+.tooltip::after {
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    top: 90%;
+    left: 50%;
+    transform: rotateZ(45deg) translateX(-50%);
+}
+
+
+.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(-35px) translateX(-3px);
+}
